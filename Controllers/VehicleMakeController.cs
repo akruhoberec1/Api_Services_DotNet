@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using WebApi_BestPractices.Models;
+using WebApi_BestPractices.Services.VehicleServices;
 
 namespace WebApi_BestPractices.Controllers
 {
@@ -9,21 +9,13 @@ namespace WebApi_BestPractices.Controllers
     [ApiController]
     public class VehicleMakeController : ControllerBase
     {
-        private static List<VehicleMake> makes = new List<VehicleMake>
-            {
-                new VehicleMake
-                { 
-                    Id = 1, 
-                    Name = "Volkswagen", 
-                    Abrv = "VW"
-                },
-                new VehicleMake
-                {
-                    Id = 2,
-                    Name = "Bayerische Motoren Werke",
-                    Abrv = "BMW"
-                },
-            };
+        private readonly IVehicleService _vehicleService;   
+
+        public VehicleMakeController(IVehicleService vehicleService)
+        {
+            _vehicleService = vehicleService;
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<VehicleMake>>> GetAllMakes()
         {
@@ -49,26 +41,21 @@ namespace WebApi_BestPractices.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<VehicleMake>> UpdateSingleMake(int id, VehicleMake request)
         {
-            var make = makes.Find(x => x.Id == id);
-            if (make is null)
-                return NotFound("Sorry, this Vehicle Make cannot be found. :(");
+            var result = _vehicleService.UpdateSingleMake(id, request);
+            if (result is null)
+                return NotFound("Make not found.");
 
-            make.Name = request.Name;   
-            make.Abrv = request.Abrv;   
-
-            return Ok(makes);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<VehicleMake>>> DeleteMake(int id)
         {
-            var make = makes.Find(x => x.Id == id);
-            if (make is null)
-                return NotFound("Sorry, this Vehicle Make cannot be found. :(");
+            var result = _vehicleService.DeleteMake(id);
+            if (result is null)
+                return NotFound("Make not found.");
 
-            makes.Remove(make);
-
-            return Ok(makes);
+            return Ok(result);
         }
 
     }

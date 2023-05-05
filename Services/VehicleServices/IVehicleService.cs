@@ -2,15 +2,15 @@
 {
     public interface IVehicleService
     {
-        List<VehicleMake> GetAllMakes();
+        Task<List<VehicleMake>> GetAllMakes();
 
-        VehicleMake? GetSingleMake(int id);
+        Task<VehicleMake?> GetSingleMake(int id);
 
-        List<VehicleMake> AddMake(VehicleMake make);
+        Task<List<VehicleMake>> AddMake(VehicleMake make);
 
-        List<VehicleMake>? UpdateSingleMake(int id, VehicleMake request);
+        Task<List<VehicleMake>?> UpdateSingleMake(int id, VehicleMake request);
 
-        List<VehicleMake>? DeleteMake(int id);
+        Task<List<VehicleMake>?> DeleteMake(int id);
 
     }
 }

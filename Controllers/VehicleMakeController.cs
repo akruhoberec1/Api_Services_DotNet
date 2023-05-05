@@ -19,13 +19,13 @@ namespace WebApi_BestPractices.Controllers
         [HttpGet]
         public async Task<ActionResult<List<VehicleMake>>> GetAllMakes()
         {
-            return _vehicleService.GetAllMakes();
+            return await _vehicleService.GetAllMakes();
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<VehicleMake>> GetSingleMake(int id)
+        public async Task<ActionResult<VehicleMake>?> GetSingleMake(int id)
         {
-            var result = _vehicleService.GetSingleMake(id);
+            var result = await _vehicleService.GetSingleMake(id);
             if (result is null)
                 return NotFound("Make not found.");
 
@@ -35,7 +35,7 @@ namespace WebApi_BestPractices.Controllers
         [HttpPost]
         public async Task<ActionResult<VehicleMake>> AddMake(VehicleMake make)
         {
-            var result = _vehicleService.AddMake(make);
+            var result = await _vehicleService.AddMake(make);
             if (result is null)
                 return NotFound("Make not found.");
 
@@ -43,9 +43,9 @@ namespace WebApi_BestPractices.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<VehicleMake>> UpdateSingleMake(int id, VehicleMake request)
+        public async Task<ActionResult<VehicleMake>?> UpdateSingleMake(int id, VehicleMake request)
         {
-            var result = _vehicleService.UpdateSingleMake(id, request);
+            var result = await _vehicleService.UpdateSingleMake(id, request);
             if (result is null)
                 return NotFound("Make not found.");
 
@@ -55,7 +55,7 @@ namespace WebApi_BestPractices.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<VehicleMake>>> DeleteMake(int id)
         {
-            var result = _vehicleService.DeleteMake(id);
+            var result = await _vehicleService.DeleteMake(id);
             if (result is null)
                 return NotFound("Make not found.");
 

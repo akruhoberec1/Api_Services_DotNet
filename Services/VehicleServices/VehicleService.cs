@@ -1,4 +1,6 @@
-﻿namespace WebApi_BestPractices.Services.VehicleServices
+﻿using WebApi_BestPractices.Data;
+
+namespace WebApi_BestPractices.Services.VehicleServices
 {
     public class VehicleService : IVehicleService
     {
@@ -17,44 +19,58 @@
                 Abrv = "BMW"
             },
         };
-        public List<VehicleMake> AddMake(VehicleMake make)
+
+        private readonly DataContext _context;
+
+        public VehicleService(DataContext context)
         {
-            makes.Add(make);
+            _context = context;
+        }
+
+        public async Task<List<VehicleMake>> AddMake(VehicleMake make)
+        {
+            _context.VehicleMakes.Add(make);
+            await _context.SaveChangesAsync();  
+
             return makes;
         }
 
-        public List<VehicleMake> GetAllMakes()
+        public async Task<List<VehicleMake>> GetAllMakes()
         {
+            var makes = await _context.VehicleMakes.ToListAsync();  
             return makes;
         }
 
-        public VehicleMake? GetSingleMake(int id)
+        public async Task<VehicleMake?> GetSingleMake(int id)
         {
-            var make = makes.Find(x => x.Id == id);
+            var make = await _context.VehicleMakes.FindAsync(id);
             if (make is null)
                 return null;
             return make;
         }
 
-        public List<VehicleMake>? UpdateSingleMake(int id, VehicleMake request)
+        public async Task<List<VehicleMake>?> UpdateSingleMake(int id, VehicleMake request)
         {
-            var make = makes.Find(x => x.Id == id);
+            var make = await _context.VehicleMakes.FindAsync(id);
             if (make is null)
                 return null; 
 
             make.Name = request.Name;
             make.Abrv = request.Abrv;
 
+            await _context.SaveChangesAsync();  
+
             return makes;
         }
 
-        public List<VehicleMake>? DeleteMake(int id)
+        public async Task<List<VehicleMake>?> DeleteMake(int id)
         {
-            var make = makes.Find(x => x.Id == id);
+            var make = await _context.VehicleMakes.FindAsync(id);
             if (make is null)
                 return null; 
 
-            makes.Remove(make);
+            _context.VehicleMakes.Remove(make);
+            await _context.SaveChangesAsync();  
 
             return makes;
         }

@@ -1,4 +1,5 @@
 global using WebApi_BestPractices.Models;
+using WebApi_BestPractices.Data;
 using WebApi_BestPractices.Services.VehicleServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddDbContext<DataContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

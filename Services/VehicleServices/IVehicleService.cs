@@ -4,7 +4,7 @@
     {
         List<VehicleMake> GetAllMakes();
 
-        VehicleMake GetSingleMake(int id);
+        VehicleMake? GetSingleMake(int id);
 
         List<VehicleMake> AddMake(VehicleMake make);
 

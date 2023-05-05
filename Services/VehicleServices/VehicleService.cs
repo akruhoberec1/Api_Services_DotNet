@@ -19,17 +19,21 @@
         };
         public List<VehicleMake> AddMake(VehicleMake make)
         {
-            throw new NotImplementedException();
+            makes.Add(make);
+            return makes;
         }
 
         public List<VehicleMake> GetAllMakes()
         {
-            throw new NotImplementedException();
+            return makes;
         }
 
-        public VehicleMake GetSingleMake(int id)
+        public VehicleMake? GetSingleMake(int id)
         {
-            throw new NotImplementedException();
+            var make = makes.Find(x => x.Id == id);
+            if (make is null)
+                return null;
+            return make;
         }
 
         public List<VehicleMake>? UpdateSingleMake(int id, VehicleMake request)

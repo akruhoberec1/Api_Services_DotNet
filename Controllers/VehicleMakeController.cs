@@ -19,23 +19,27 @@ namespace WebApi_BestPractices.Controllers
         [HttpGet]
         public async Task<ActionResult<List<VehicleMake>>> GetAllMakes()
         {
-            return Ok(makes);
+            return _vehicleService.GetAllMakes();
         }
         
         [HttpGet("{id}")]
         public async Task<ActionResult<VehicleMake>> GetSingleMake(int id)
         {
-            var make = makes.Find(x => x.Id == id);
-            if (make is null)
-                return NotFound("Sorry, this Vehicle Make cannot be found. :(");
-            return Ok(make);
+            var result = _vehicleService.GetSingleMake(id);
+            if (result is null)
+                return NotFound("Make not found.");
+
+            return Ok(result);
         }
 
         [HttpPost]
         public async Task<ActionResult<VehicleMake>> AddMake(VehicleMake make)
         {
-            makes.Add(make);
-            return Ok(make);    
+            var result = _vehicleService.AddMake(make);
+            if (result is null)
+                return NotFound("Make not found.");
+
+            return Ok(result);
         }
 
         [HttpPut("{id}")]

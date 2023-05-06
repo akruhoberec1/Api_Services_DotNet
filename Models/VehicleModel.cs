@@ -10,9 +10,9 @@ namespace WebApi_BestPractices.Models
 
         public string Abrv { get; set; } = string.Empty;
 
-        public int MakeId { get; set; }
+        public VehicleMake? VehicleMakes { get; set; }
 
-        public VehicleMake? VehicleMakes { get; set; } 
+        public int MakeId { get; set; } 
 
     }
 }

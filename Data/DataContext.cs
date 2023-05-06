@@ -16,5 +16,7 @@ namespace WebApi_BestPractices.Data
         }
 
         public DbSet<VehicleMake> VehicleMakes { get; set; }
+
+        public DbSet<VehicleModel> VehicleModels { get; set; }  
     }
 }

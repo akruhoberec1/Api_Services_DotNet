@@ -2,15 +2,17 @@
 
 namespace WebApi_BestPractices.Models
 {
-    public class VehicleMake
+    public class VehicleModel
     {
         public int Id { get; set; }
 
         public string Name { get; set; } = string.Empty;
 
         public string Abrv { get; set; } = string.Empty;
-        [InverseProperty("VehicleModel")]
-        public ICollection<VehicleModel>? VehicleModels { get; set; }
+        [ForeignKey("VehicleMake")]
+        public int MakeId { get; set; }
+
+        public VehicleMake? VehicleMakes { get; set; } 
 
     }
 }

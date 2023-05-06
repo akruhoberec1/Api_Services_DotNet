@@ -12,5 +12,15 @@
 
         Task<List<VehicleMake>?> DeleteMake(int id);
 
+        Task<List<VehicleModel>> GetAllModels();
+
+        Task<VehicleModel?> GetSingleModel(int id);
+
+        Task<List<VehicleModel>> AddModel(VehicleModel model);
+
+        Task<List<VehicleModel>?> UpdateSingleModel(int id, VehicleModel request);
+
+        Task<List<VehicleModel>?> DeleteModel(int id);
+
     }
 }

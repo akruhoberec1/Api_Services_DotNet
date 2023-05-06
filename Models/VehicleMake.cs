@@ -9,8 +9,8 @@ namespace WebApi_BestPractices.Models
         public string Name { get; set; } = string.Empty;
 
         public string Abrv { get; set; } = string.Empty;
-        [InverseProperty("VehicleModel")]
-        public ICollection<VehicleModel>? VehicleModels { get; set; }
+        
+        public List<VehicleModel>? VehicleModels { get; set; }
 
     }
 }
